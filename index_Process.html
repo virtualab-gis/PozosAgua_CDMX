@@ -94,15 +94,7 @@ var vex_style = {
     fillOpacity: 0.6
 };
 	  
-	  
-//Estilo colonias	  
-var col_style = {
-	fillcolor:"FFFFFF",
-	color: "#000000",
-	weight: 1,
-	opacity: 0.6,
-	fillOpacity: 0.25
-};
+
 // Crear variables para los GeoJSON
 var limite = L.geoJson(null, {
 	style: limite_style })
@@ -201,14 +193,6 @@ var vex = L.geoJson(null, {
 	onEachFeature: function( feature, layer ){
       	layer.bindPopup( "<strong>" + "Volúmen de extracción" + "</strong><br/>" + feature.properties.CVE_INT )}
 	});
-//Variable para las colonias
-var col = L.geoJson(null, {
-	style: col_style, 
-	onEachFeature: function( feature, layer ){
-	layer.bindPopup( "<strong>" + "COLONIA" + "</strong><br/>"+
-	feature.properties.SETT_NAME + ", POBLACIÓN: " + feature.properties.Sum_POB1 + " HABITANTES" )}
-	});
-
 	  
 //Cargar el GeoJSON a las variables	    
 $.getJSON("GeoJson/CDMX_Hex.geojson", function (data) {
@@ -223,8 +207,6 @@ $.getJSON("GeoJson/q_GCS.geojson", function (data) {
 	q.addData(data)});
 $.getJSON("GeoJson/vex_GCS.geojson", function (data) {
 	vex.addData(data)});
-$.getJSON("GeoJson/Colonias.geojson", function (data) {
-	col.addData(data)});	  
 $.getJSON("GeoJson/amigos.geojson", function (data) {
 	amigos.addData(data)});
 	  
@@ -251,7 +233,6 @@ var overlays = {
     "Volúmen de extracción": vex,
     "Red SCT Metro": red_metro,
     "Densidad poblacional": cdmx,
-    "Colonias": col,
     };
 //Agregar controlador al mapa
 L.control.layers(baseMaps, overlays).addTo(map);
