@@ -78,17 +78,7 @@ var vex_style = {
     fillOpacity: 0.6
 };
 	  
-// Estilo para capa de tiendas con icono en particular	  
-var tiendas_style = L.icon({
-	iconUrl: 'Icon/dice.png',
-	iconSize: [22.5, 22.5],
-});
 	  
-function estiloIcon(feature, latlng) {
-	return L.marker(latlng, {
-		icon: tiendas_style
-	})
-};	  
 //Estilo colonias	  
 var col_style = {
 	fillcolor:"FFFFFF",
@@ -172,12 +162,7 @@ var col = L.geoJson(null, {
 	layer.bindPopup( "<strong>" + "COLONIA" + "</strong><br/>"+
 	feature.properties.SETT_NAME + ", POBLACIÓN: " + feature.properties.Sum_POB1 + " HABITANTES" )}
 	});
-//Variable para las tiendas
-var tiendas =L.geoJson(null, {
-	pointToLayer: estiloIcon,
-	onEachFeature: function( feature, layer ){
-		layer.bindPopup( "<strong>" + feature.properties.Name + "</strong><br/>" + feature.properties.link)}
-	});
+
 	  
 //Cargar el GeoJSON a las variables	    
 $.getJSON("GeoJson/CDMX_Hex.geojson", function (data) {
@@ -193,9 +178,7 @@ $.getJSON("GeoJson/q_GCS.geojson", function (data) {
 $.getJSON("GeoJson/vex_GCS.geojson", function (data) {
 	vex.addData(data)});
 $.getJSON("GeoJson/Colonias.geojson", function (data) {
-	col.addData(data)});
-$.getJSON("GeoJson/tiendas.geojson", function (data) {
-	tiendas.addData(data)});	  
+	col.addData(data)});	  
 $.getJSON("GeoJson/amigos.geojson", function (data) {
 	amigos.addData(data)});
 	  
@@ -217,8 +200,6 @@ var baseMaps = {
 }
 //Agrupar Overlay layers
 var overlays = {
-   /* "Amigos": amigos,*/
-    "Tiendas": tiendas,
     "Profundidad del Nivel Estático": pne,
     "Caudal": q,
     "Volúmen de extracción": vex,
