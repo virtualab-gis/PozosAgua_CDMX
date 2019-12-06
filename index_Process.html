@@ -53,14 +53,6 @@ var limite_style = {
     "weight": 5,
     "opacity": 1
 };
-var est_metro_style = {
-    radius: 3.5,
-    fillColor: "#FFFFFF",
-    color: "#000000",
-    weight: 1.5,
-    opacity: 1,
-    fillOpacity: 0.6
-};
 var pne_style = {
     radius: 3.5,
     fillColor: "#FFFFFF",
@@ -157,12 +149,6 @@ var red_metro = L.geoJson(null, {
       		layer.bindPopup( "<strong>" + "SCT Metro" + "</strong><br/>"+ feature.properties.Name)
     }
 	});
-//Variable para las estaciones del metro
-var est_metro = L.geoJson(null, {
-	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, est_metro_style)},
-	onEachFeature: function( feature, layer ){
-      	layer.bindPopup( "<strong>" + "SCT Metro" + "</strong><br/>" + feature.properties.Name )}
-	});
 //Variables hidrogeológicas
 var pne = L.geoJson(null, {
 	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, pne_style)},
@@ -200,8 +186,6 @@ $.getJSON("GeoJson/Limite_CDMX.geojson", function (data) {
 	limite.addData(data)});
 $.getJSON("GeoJson/Red_STCMetro.geojson", function (data) {
 	red_metro.addData(data)});	
-$.getJSON("GeoJson/Estaciones_STCMetro.geojson", function (data) {
-	est_metro.addData(data)});
 $.getJSON("GeoJson/pne_GCS.geojson", function (data) {
 	pne.addData(data)});
 $.getJSON("GeoJson/q_GCS.geojson", function (data) {
@@ -216,7 +200,7 @@ $.getJSON("GeoJson/amigos.geojson", function (data) {
 	amigos.addData(data)});
 	  
 //Ordenar las capas en orden
-est_metro.bringToFront();	  
+//est_metro.bringToFront();	  
 limite.bringToFront();
 	
 // Inicialización del mapa
@@ -238,7 +222,6 @@ var overlays = {
     "Profundidad del Nivel Estático": pne,
     "Caudal": q,
     "Volúmen de extracción": vex,
-    "Estaciones SCT Metro": est_metro,
     "Red SCT Metro": red_metro,
     "Densidad poblacional": cdmx,
     "Colonias": col,
