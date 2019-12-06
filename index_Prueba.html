@@ -63,6 +63,15 @@ var est_metro_style = {
     opacity: 1,
     fillOpacity: 0.6
 };
+
+var pne_style = {
+    radius: 3.5,
+    fillColor: "#FFFFFF",
+    color: "#000000",
+    weight: 1.5,
+    opacity: 1,
+    fillOpacity: 0.6
+};
 	  
 // Estilo para capa de tiendas con icono en particular	  
 var tiendas_style = L.icon({
@@ -162,8 +171,8 @@ var tiendas =L.geoJson(null, {
 	});
 	  
 //Cargar el GeoJSON a las variables	    
-$.getJSON("GeoJson/CDMX_Hex.geojson", function (data) {
-	cdmx.addData(data)});
+$.getJSON("GeoJson/pne_GCS.geojson", function (data) {
+	pne.addData(data)});
 $.getJSON("GeoJson/Limite_CDMX.geojson", function (data) {
 	limite.addData(data)});
 $.getJSON("GeoJson/Red_STCMetro.geojson", function (data) {
@@ -198,6 +207,7 @@ var baseMaps = {
 var overlays = {
    /* "Amigos": amigos,*/
     "Tiendas": tiendas,	
+    "PNE": pne,
     "Estaciones SCT Metro": est_metro,
     "Red SCT Metro": red_metro,
     "Densidad poblacional": cdmx,
