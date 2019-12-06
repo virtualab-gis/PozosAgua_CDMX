@@ -147,7 +147,7 @@ var vex = L.geoJson(null, {
 var alcal = L.geoJson(null, {
 	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, alcal_style)},
 	onEachFeature: function( feature, layer ){
-      	layer.bindPopup( "<strong>" + "Alcaldía" + "</strong><br/>" + feature.properties.NOM_MUN )}
+      	layer.bindPopup( "<strong>" + "Alcaldía" + "</strong><br/>" + feature.properties.CVE_MUN )}
 	});
 //Cargar el GeoJSON a las variables	    
 $.getJSON("GeoJson/Limite_CDMX.geojson", function (data) {
