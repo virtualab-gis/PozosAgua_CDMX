@@ -69,14 +69,14 @@ var limite_style = {
     "weight": 2,
     "opacity": 1
 };
-//var pne_style = {
-//    radius: 3.5,
-//    fillColor: "#FFFFFF",
-//    color: "#000000",
-//    weight: 1.5,
-//    opacity: 1,
-//    fillOpacity: 0.6
-//};
+var pne_style = {
+    radius: 3.5,
+    fillColor: "#FFFFFF",
+    color: "#000000",
+    weight: 1.5,
+    opacity: 1,
+   fillOpacity: 0.6
+};
 var q_style = {
     radius: 3.5,
     fillColor: "#FFFFFF",
@@ -105,63 +105,7 @@ var alcal_style = {
 // Crear variables para los GeoJSON
 var limite = L.geoJson(null, {
 	style: limite_style })
-//Variable para capa de la ubicación de cada de amigos
-var amigos = L.geoJson(null, { 
-	onEachFeature: function( feature, layer ){
-		layer.bindPopup( "<strong>" + feature.properties.Name + "</strong>")}
-		});
-//Variable con los hexagonos tematizados de la CDMX	  
-var cdmx = L.geoJson(null, {
-    style: function(feature){
-      var fillColor,
-          denpob = feature.properties.DenPob;
-      if ( denpob >  253.2304 ) fillColor = "#a50f15";
-      else if ( denpob > 177.13 ) fillColor = "#de2d26";
-      else if ( denpob > 112.24 ) fillColor = "#fb6a4a";
-      else if ( denpob > 51.76 ) fillColor = "#fcae91";
-      else if ( denpob > 0.03 ) fillColor = "#fee5d9";
-      else fillColor = "#f7f7f7";  // no data
-      return { color: "#999", weight: 0.5, fillColor: fillColor, fillOpacity: .5 };
-    },
-	 onEachFeature: function( feature, layer ){
-      layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>" + feature.properties.DenPob + " habitantes por hectárea" )
-    }
-  }  );
-//Variable con las PNE	  
-var pne = L.geoJson(null, {
-    style: function(feature){
-      var fillColor,
-          PNE = feature.properties.PNE_2010_h;
-      if ( PNE >  175 ) radius: 11, fillColor = "#ff0000";
-      else if ( PNE > 150.0 ) radius: 10, fillColor = "#ff0b00";
-      else if ( PNE > 125.0 ) radius: 9, fillColor = "#ffb700";
-      else if ( PNE > 100.0 ) radius: 8, fillColor = "#ffff00";
-      else if ( PNE > 85.0 ) radius: 7, fillColor = "#d2ff69";
-      else if ( PNE > 70.0 ) radius: 6, fillColor = "#91ffb4";
-      else if ( PNE > 55.0 ) radius: 5, fillColor = "#00ffff";
-      else if ( PNE > 40.0 ) radius: 4, fillColor = "#38acff";
-      else if ( PNE > 30.0 ) radius: 3, fillColor = "#3662ff";
-      else if ( PNE >= 0.0 ) radius: 2, fillColor = "#0000ff";
-      else radius: 2, fillColor = "#bababa";  // no data
-      return { color: "#999", weight: 0.5, fillColor: fillColor, fillOpacity: .5 };
-    },
-	 onEachFeature: function( feature, layer ){
-      layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>" + feature.properties.DenPob + " habitantes por hectárea" )
-    }
-  }  );
-// var pne_style = {
-//     radius: 3.5,
-//    fillColor: "#FFFFFF",
-//     color: "#000000",
-//     weight: 1.5,
-//     opacity: 1,
-//     fillOpacity: 0.6
 
-   /* onEachFeature: function( feature, layer ){
-      layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>+"feature.properties.DenPob + " habitantes por hectárea" )
-    }
-};
-*/
 // Variable para la red del metro tematizada	  
 var red_metro = L.geoJson(null, {
 	style: function(feature){
@@ -207,8 +151,6 @@ var alcal = L.geoJson(null, {
       	layer.bindPopup( "<strong>" + "Alcaldía" + "</strong><br/>" + feature.properties.NOM_MUN )}
 	});
 //Cargar el GeoJSON a las variables	    
-$.getJSON("GeoJson/CDMX_Hex.geojson", function (data) {
-	cdmx.addData(data)});
 $.getJSON("GeoJson/Limite_CDMX.geojson", function (data) {
 	limite.addData(data)});
 $.getJSON("GeoJson/alcaldias.geojson", function (data) {
@@ -221,8 +163,6 @@ $.getJSON("GeoJson/q_GCS.geojson", function (data) {
 	q.addData(data)});
 $.getJSON("GeoJson/vex_GCS.geojson", function (data) {
 	vex.addData(data)});
-$.getJSON("GeoJson/amigos.geojson", function (data) {
-	amigos.addData(data)});
 	  
 //Ordenar las capas en orden
 //est_metro.bringToFront();	  
@@ -247,7 +187,6 @@ var overlays = {
     "Volúmen de extracción": vex,
     "Red SCT Metro": red_metro,
     "Alcaldías": alcal,
-    "Densidad poblacional": cdmx,
     };
 //Agregar controlador al mapa
 L.control.layers(baseMaps, overlays).addTo(map);
