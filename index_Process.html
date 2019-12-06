@@ -61,8 +61,23 @@ var est_metro_style = {
     opacity: 1,
     fillOpacity: 0.6
 };
-	  
 var pne_style = {
+    radius: 3.5,
+    fillColor: "#FFFFFF",
+    color: "#000000",
+    weight: 1.5,
+    opacity: 1,
+    fillOpacity: 0.6
+};
+var q_style = {
+    radius: 3.5,
+    fillColor: "#FFFFFF",
+    color: "#000000",
+    weight: 1.5,
+    opacity: 1,
+    fillOpacity: 0.6
+};
+var vex_style = {
     radius: 3.5,
     fillColor: "#FFFFFF",
     color: "#000000",
@@ -148,11 +163,21 @@ var est_metro = L.geoJson(null, {
 	onEachFeature: function( feature, layer ){
       	layer.bindPopup( "<strong>" + "SCT Metro" + "</strong><br/>" + feature.properties.Name )}
 	});
-//Variable para pne
+//Variables hidrogeológicas
 var pne = L.geoJson(null, {
 	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, pne_style)},
 	onEachFeature: function( feature, layer ){
       	layer.bindPopup( "<strong>" + "PNE" + "</strong><br/>" + feature.properties.CVE_INT )}
+	});
+var q = L.geoJson(null, {
+	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, q_style)},
+	onEachFeature: function( feature, layer ){
+      	layer.bindPopup( "<strong>" + "Caudal" + "</strong><br/>" + feature.properties.CVE_INT )}
+	});
+var vex = L.geoJson(null, {
+	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, vex_style)},
+	onEachFeature: function( feature, layer ){
+      	layer.bindPopup( "<strong>" + "Volúmen de extracción" + "</strong><br/>" + feature.properties.CVE_INT )}
 	});
 //Variable para las colonias
 var col = L.geoJson(null, {
@@ -179,6 +204,10 @@ $.getJSON("GeoJson/Estaciones_STCMetro.geojson", function (data) {
 	est_metro.addData(data)});
 $.getJSON("GeoJson/pne_GCS.geojson", function (data) {
 	pne.addData(data)});
+$.getJSON("GeoJson/q_GCS.geojson", function (data) {
+	q.addData(data)});
+$.getJSON("GeoJson/vex_GCS.geojson", function (data) {
+	vex.addData(data)});
 $.getJSON("GeoJson/Colonias.geojson", function (data) {
 	col.addData(data)});
 $.getJSON("GeoJson/tiendas.geojson", function (data) {
@@ -207,6 +236,8 @@ var overlays = {
    /* "Amigos": amigos,*/
     "Tiendas": tiendas,
     "Profundidad del Nivel Estático": pne,
+    "Caudal": q,
+    "Volúmen de extracción": vex,
     "Estaciones SCT Metro": est_metro,
     "Red SCT Metro": red_metro,
     "Densidad poblacional": cdmx,
