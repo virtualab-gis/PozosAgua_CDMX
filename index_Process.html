@@ -117,17 +117,17 @@ var pne = L.geoJson(null, {
     style: function(feature){
       var fillColor,
           PNE = feature.properties.PNE_2010_h;
-      if ( PNE >  175 ) fillColor = "#ff0000";
-      else if ( PNE > 150.0 ) fillColor = "#ff0b00";
-      else if ( PNE > 125.0 ) fillColor = "#ffb700";
-      else if ( PNE > 100.0 ) fillColor = "#ffff00";
-      else if ( PNE > 85.0 ) fillColor = "#d2ff69";
-      else if ( PNE >= 70.0 ) fillColor = "#91ffb4";
-      else if ( PNE > 55.0 ) fillColor = "#00ffff";
-      else if ( PNE > 40.0 ) fillColor = "#38acff";
-      else if ( PNE > 30.0 ) fillColor = "#3662ff";
-      else if ( PNE >= 0.0 ) fillColor = "#0000ff";
-      else fillColor = "#bababa";  // no data
+      if ( PNE >  175 ) radius: 11, fillColor = "#ff0000";
+      else if ( PNE > 150.0 ) radius: 10, fillColor = "#ff0b00";
+      else if ( PNE > 125.0 ) radius: 9, fillColor = "#ffb700";
+      else if ( PNE > 100.0 ) radius: 8, fillColor = "#ffff00";
+      else if ( PNE > 85.0 ) radius: 7, fillColor = "#d2ff69";
+      else if ( PNE > 70.0 ) radius: 6, fillColor = "#91ffb4";
+      else if ( PNE > 55.0 ) radius: 5, fillColor = "#00ffff";
+      else if ( PNE > 40.0 ) radius: 4, fillColor = "#38acff";
+      else if ( PNE > 30.0 ) radius: 3, fillColor = "#3662ff";
+      else if ( PNE >= 0.0 ) radius: 2, fillColor = "#0000ff";
+      else radius: 2, fillColor = "#bababa";  // no data
       return { color: "#999", weight: 0.5, fillColor: fillColor, fillOpacity: .5 };
     },
 	 onEachFeature: function( feature, layer ){
