@@ -112,6 +112,36 @@ var cdmx = L.geoJson(null, {
       layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>" + feature.properties.DenPob + " habitantes por hectárea" )
     }
   }  );
+//Variable con las PNE	  
+var pne = L.geoJson(null, {
+    style: function(feature){
+      var fillColor,
+          PNE = feature.properties.PNE_2010_h;
+      if ( PNE >  175 ) fillColor = "#ff0000";
+      else if ( PNE > 150.0 ) fillColor = "#ff0b00";
+      else if ( PNE > 125.0 ) fillColor = "#ffb700";
+      else if ( PNE > 100.0 ) fillColor = "#ffff00";
+      else if ( PNE > 85.0 ) fillColor = "#d2ff69";
+      else if ( PNE >= 70.0 ) fillColor = "#91ffb4";
+      else if ( PNE > 55.0 ) fillColor = "#00ffff";
+      else if ( PNE > 40.0 ) fillColor = "#38acff";
+      else if ( PNE > 30.0 ) fillColor = "#3662ff";
+      else if ( PNE >= 0.0 ) fillColor = "#0000ff";
+      else fillColor = "#bababa";  // no data
+      return { color: "#999", weight: 0.5, fillColor: fillColor, fillOpacity: .5 };
+    },
+	 onEachFeature: function( feature, layer ){
+      layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>" + feature.properties.DenPob + " habitantes por hectárea" )
+    }
+  }  );
+// var pne_style = {
+//     radius: 3.5,
+//    fillColor: "#FFFFFF",
+//     color: "#000000",
+//     weight: 1.5,
+//     opacity: 1,
+//     fillOpacity: 0.6
+
    /* onEachFeature: function( feature, layer ){
       layer.bindPopup( "<strong>" + "Densidad" + "</strong><br/>+"feature.properties.DenPob + " habitantes por hectárea" )
     }
