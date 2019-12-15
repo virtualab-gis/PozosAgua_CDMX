@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pozos de agua CDMX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+
+  <!-- Cargar Leaflet: instructions at http://leafletjs.com/download.html -->
+<!-- Cargar .css -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+  integrity="sha384-Zh+y1U8o6/7ni8Mp8szvUfZjGeKKS10CGH3IlD6L1X+XwzYgQ1llOjw/Wslc0cma"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- Cargar .js -->
+  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
+  integrity="sha384-6rCYjRgWDEI2RlZxiVihj1WIZB/uvFiRCGpavTVgFrSPDL0Bk1AiqCW+mmv5h0LP"
+  crossorigin="anonymous"></script>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7.3/leaflet.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+<!-- Cargar jquery -->
+    <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+  
+  <!-- Position the map and title with Cascading Style Sheet (.css) -->
+  <style>
+  body { margin:0; padding:0; }
+  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
+  button {
+      width: 100px;
+  }
+  </style>
+</head>
+<body>
+  <!-- Display the map and title with HTML division tags  -->
+
+  <div id="map"></div>
+
+  <!-- Create the map content with JavaScript (.js) -->
+  <script>
+        //Crear variables para mapa base
+        // add an OpenStreetMap tile layer
+        var light = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'});
+        //Cargar capas GeoJSON
+	  
+        //Estilo para ciertas capas
+        var limite_style = {
+            "fillOpacity": 0,
+            "color": "#414244",
+            "weight": 2,
+            "opacity": 1
+        };
+        var pne_style = {
+            radius: 3.5,
+            fillColor: "#FFFFFF",
+            color: "#000000",
+            weight: 1.5,
+            opacity: 1,
+            fillOpacity: 0.6
+        };
+        var q_style = {
+            radius: 3.5,
+            fillColor: "#FFFFFF",
+            color: "#000000",
+            weight: 1.5,
+            opacity: 1,
+            fillOpacity: 0.6
+        };
+        var vex_style = {
+            radius: 3.5,
+            fillColor: "#FFFFFF",
+            color: "#000000",
+            weight: 1.5,
+            opacity: 1,
+            fillOpacity: 0.6
+        };
+        //Estilo alcaldías	  
+        var alcal_style = {
+        	fillcolor: 0,
+        	color: "#414244",
+        	weight: 2,
+        	opacity: 1,
+        };
+
+        // Crear variables para los GeoJSON
+        var limite = L.geoJson(null, {
+	style: limite_style })
+
+
+        //Variables hidrogeológicas
+       var pne = L.geoJson(null, {
+        	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, pne_style)},
+	        onEachFeature: function( feature, layer ){
+      	    layer.bindPopup( "<strong>" + "PNE" + "</strong><br/>" + feature.properties.CVE_INT )}
+    	});
+        var q = L.geoJson(null, {
+        	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, q_style)},
+        	onEachFeature: function( feature, layer ){
+      	layer.bindPopup( "<strong>" + "Caudal" + "</strong><br/>" + feature.properties.CVE_INT )}
+    	});
+        var vex = L.geoJson(null, {
+        	pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, vex_style)},
+        	onEachFeature: function( feature, layer ){
+           	layer.bindPopup( "<strong>" + "Volúmen de extracción" + "</strong><br/>" + feature.properties.CVE_INT )}
+	    });
+        //Variables división política
+        var alcal = L.geoJson(null, {
+	        pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, alcal_style)},
+        	onEachFeature: function( feature, layer ){
+           	layer.bindPopup( "<strong>" + "Alcaldía" + "</strong><br/>" + feature.properties.CVE_MUN )}
+    	});
+        //Cargar el GeoJSON a las variables	    
+        $.getJSON("GeoJson/Limite_CDMX.geojson", function (data) {
+	        limite.addData(data)});
+        $.getJSON("GeoJson/alcaldias.geojson", function (data) {
+	        alcal.addData(data)});
+        $.getJSON("GeoJson/pne_GCS.geojson", function (data) {
+	        pne.addData(data)});
+        $.getJSON("GeoJson/q_GCS.geojson", function (data) {
+	        q.addData(data)});
+        $.getJSON("GeoJson/vex_GCS.geojson", function (data) {
+	        vex.addData(data)});
+	  
+        //Poner las capas en orden
+        //est_metro.bringToFront();	  
+        limite.bringToFront();
+	
+        // Inicialización del mapa
+        var map = L.map('map', {
+        	center:[19.349519, -99.152265],
+        	zoom:10,
+        	layers:[light, limite, alcal, pne, q, vex]});
+        //Agrupar capas base
+        //var baseMaps = {
+        //"Carto light": light,
+        //}
+        //Agrupar Overlay layers
+        //var overlays = {
+        //    "Profundidad del Nivel Estático": pne,
+        //    "Caudal": q,
+        //    "Volúmen de extracción": vex,
+        //    "Alcaldías": alcal,
+        //    };
+        //Agregar controlador al mapa
+        //L.control.layers(baseMaps, overlays).addTo(map);
+        //Agregar escala metrica
+        L.control.scale().addTo(map);
+ 
+    </script>
+</body>
+</html>
