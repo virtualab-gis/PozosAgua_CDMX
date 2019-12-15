@@ -139,18 +139,18 @@
         	zoom:10,
         	layers:[light, limite, alcal, pne, q, vex]});
         //Agrupar capas base
-        //var baseMaps = {
-        //"Carto light": light,
-        //}
+        var baseMaps = {
+        "Carto light": light
+        }
         //Agrupar Overlay layers
-        //var overlays = {
-        //    "Profundidad del Nivel Estático": pne,
-        //    "Caudal": q,
-        //    "Volúmen de extracción": vex,
-        //    "Alcaldías": alcal,
-        //    };
+        var overlays = {
+            "Profundidad del Nivel Estático": pne,
+            "Caudal": q,
+            "Volúmen de extracción": vex,
+            "Alcaldías": alcal
+            };
         //Agregar controlador al mapa
-        //L.control.layers(baseMaps, overlays).addTo(map);
+        L.control.layers(baseMaps, overlays).addTo(map);
         //Agregar escala metrica
         L.control.scale().addTo(map);
  
