@@ -129,15 +129,14 @@
         $.getJSON("GeoJson/vex_GCS.geojson", function (data) {
 	        vex.addData(data)});
 	  
-        //Poner las capas en orden
-        //est_metro.bringToFront();	  
+        //Poner las capas en orden	  
         limite.bringToFront();
 	
         // Inicialización del mapa
         var map = L.map('map', {
         	center:[19.349519, -99.152265],
         	zoom:10,
-        	layers:[light, limite, alcal, pne, q, vex]});
+        	layers:[light, limite]});
         //Agrupar capas base
         var baseMaps = {
         "Carto light": light
@@ -147,7 +146,7 @@
             "Profundidad del Nivel Estático": pne,
             "Caudal": q,
             "Volúmen de extracción": vex,
-            "Alcaldías": alcal
+            "Alcaldías": alcal,
             };
         //Agregar controlador al mapa
         L.control.layers(baseMaps, overlays).addTo(map);
