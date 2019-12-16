@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GEOVIS</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="mapa.css">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css">
+    <head>
+    <body>
+
+        <div>
+            <h1 style="margin-left: 10%;margin-top: 0%;">Pozos de agua de la Ciuad de México</h1>
+            <p style="margin-left: 10%;">En el siguiente mapa interactivo se puede observar que...</p>
+        
+            <div id="map_pne" style="width: 500px; height: 700px"></div>
+            <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+            <script src="geojson/pne_GCS.js"></script>
+            <script>
+                var map = L.map('map_pne').setView([19.349519, -99.152265], 10);
+                L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map); //will be our basemap.
+                function onEachFeature(feature, layer) {
+                    if (feature.properties) {
+                        layer.bindPopup("<b>" + feature.properties.street + "</b> is " + feature.properties.length + "km long.");
+                    }
+                }
+                
+                var pne_style = {
+                    radius: 3.5,
+                    fillColor: "#FFFFFF",
+                    color: "#000000",
+                    weight: 1.5,
+                    opacity: 1,
+                    fillOpacity: 0.6
+                    };
+
+                var streets = new L.geoJson(pne, {
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+            </script>
+        </div>
+
+        <div>
+            <h1 style="margin-left: 10%; margin-top: 38%;">Pozos de agua de la Ciuad de México</h1>
+            <p  style="margin-left: 10%; margin-top: 0%;"> Aquí va el texto que platicará sobre dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas</p>
+
+            <div id="map_q" style="width: 500px; height: 700px"></div>
+            <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+            <script src="roads.js"></script>
+            <script>
+                var map = L.map('map_q').setView([52.52,13.384], 13);
+                L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map); //will be our basemap.
+                function onEachFeature(feature, layer) {
+                    if (feature.properties) {
+                            layer.bindPopup("<b>" + feature.properties.street + "</b> is " + feature.properties.length + "km long.");
+                    }
+                }
+                var streets = new L.geoJson(roads, {
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+            </script>
+        <div>
+        <div>
+            <div id="map_vex" style="width: 500px; height: 700px"></div>
+            <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+            <script src="roads.js"></script>
+            <script>
+                var map = L.map('map_vex').setView([52.52,13.384], 13);
+                L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map); //will be our basemap.
+                function onEachFeature(feature, layer) {
+                    if (feature.properties) {
+                            layer.bindPopup("<b>" + feature.properties.street + "</b> is " + feature.properties.length + "km long.");
+                    }
+                }
+                var streets = new L.geoJson(roads, {
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+            </script>
+        </div>
+
+
+    </body>
+</html>
